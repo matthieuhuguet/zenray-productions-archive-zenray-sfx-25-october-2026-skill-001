@@ -1,0 +1,17 @@
+{
+  "_doc": "26 October 2026 : the Assets article of this skill is rebuilt from SKILL.md by zenray-edit/scripts/refresh-articles.mjs (entry zenray-sfx of articles/Registry.json), run by sync-skill.sh and the LaunchAgent com.zenray.articles-refresh. Edit SKILL.md, never the article. The opening image is rebuilt by Scripts/MakeHero.py of the workshop.",
+  "projectId": "zenray-sfx-25-october-2026",
+  "title": "ZenRay SFX",
+  "slug": "zenray-sfx",
+  "eyebrow": "Son, reproduction et édition",
+  "lead": "Logiciel local qui reproduit des effets sonores sous forme de recette, les décrit en texte et les modifie par composants nommés, sans modèle d'IA. Cet article est généré depuis le skill à chaque consignation.",
+  "workshop": "/Users/zenray/.claude/tmp/tmp-zenray-sfx-25-october-2026",
+  "hero": {
+    "image": "Drafts/Article/assets/hero-zenray-sfx-26-October-2026.png",
+    "alt": "Trois spectrogrammes du son Denied : la référence, la reproduction depuis la recette, puis la retouche sémantique plus lourde.",
+    "text": "Un même son vu trois fois : la référence, sa reproduction depuis la recette, puis une retouche par composant.",
+    "caption": "Spectrogrammes mel sur la même échelle, son Denied de Death Stranding."
+  },
+  "skipSections": [],
+  "theme": "papier"
+}

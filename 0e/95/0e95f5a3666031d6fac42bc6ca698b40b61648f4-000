@@ -1,0 +1,65 @@
+---
+name: zenray-sfx
+description: ZenRay SFX, reproduire, décrire et créer des effets sonores (SFX de jeu, cinéma, cours) SANS IA et sans dépendance payante. Un son devient une recette (nombres lisibles, aucun échantillon), un texte brief exact dans les deux sens, des macros et trois propositions. Utiliser pour « ZenRay SFX », « reproduis ce son », « recrée ce SFX », « nettoie ce son de YouTube », « le son du coffre d'Elden Ring », « décris ce son », « trois propositions de son », ou toute synthèse ou resynthèse d'effet sonore.
+---
+
+# ZenRay SFX (25 October 2026)
+
+Dépôt : `/Users/zenray/Create/Build/Productions/GithubProductions/ZenRaySFX`. Méthode complète, mesures et échecs : `docs/METHOD.md` du dépôt, qui fait foi. (25 October 2026)
+
+## Ce que fait ZenRay SFX (26 October 2026)
+
+- ZenRay SFX reproduit et modifie des effets sonores sans modèle d'IA et sans service payant. Le calcul tourne en local en Python (numpy, torch pour l'ajustement). (26 October 2026)
+- Étape 1, reproduction : un son de référence devient une recette, c'est-à-dire des nombres lisibles (partiels, grille de souffle, portes de niveau) qui ne contiennent aucun échantillon de la référence. La recette est rendue à nouveau à chaque écoute. (26 October 2026)
+- Étape 2, texte : la recette s'écrit en texte court (16 lignes, le caractère du son) ou en texte long (226 à 293 lignes, l'identité du son). Les deux textes se relisent et se rendent sans perte de format. (26 October 2026)
+- Étape 3, édition sémantique : chaque son reproduit est découpé en composants nommés (Attaque, Corps grave, Souffle, Tons). Chaque composant a ses curseurs (niveau, hauteur, attaque, queue, brillance, matière, moment). Tous les curseurs à zéro rendent le son d'origine. (26 October 2026)
+- Étape 4, création sans référence : une description en mots choisit des archétypes (loquet, grincement, choc de bois, poussière) et produit trois propositions. Leur qualité n'est pas mesurée, faute de son de référence. (26 October 2026)
+- Les trois étages paramétrique, procédural et sémantique sont définis dans `/Users/zenray/.claude/rules/ParametricHda1.md`, section du 25 October 2026. (26 October 2026)
+
+## Résultats mesurés au 26 October 2026
+
+| Mesure | Résultat | Méthode de mesure |
+|---|---|---|
+| Reproduction, six sons Death Stranding | 99,35 de moyenne, 6 sur 6 au plafond d'identité | perte perceptive invariante, graines de bruit jamais vues pendant l'ajustement |
+| Texte court, 16 lignes | 82 à 94, moyenne 89,0 | même mesure, texte relu puis rendu |
+| Texte long | identique au bit près | comparaison des échantillons rendus |
+| Son sale (souffle, pièce, MP3) | 98,39 contre l'original propre | `Scripts/CleanTest.py` |
+| Édition sémantique, curseurs à zéro | écart de 10⁻¹⁶ avec la recette | `Scripts/CheckSemantic.py` |
+| Continuité et effet de chaque curseur | 0 échec sur six sons ; 28 échecs sur une version cassée exprès | `Scripts/CheckSliders.py`, vert puis `--red` |
+| Écoute de Matthieu | non vérifiée | pages `out/listen-01` et `out/semantic-demo-01` |
+
+## Les commandes (25 October 2026)
+
+- App locale : `python3 Scripts/App.py`, http://127.0.0.1:3120, ou `preview_start` `zenray-sfx` (launch.json de Memory1). (25 October 2026)
+- Reproduire à l'identique : `/usr/bin/python3 Scripts/Reproduce.py "refs/*.wav" --run <run>` (analyse P256G32aEM, polissage 150 pas, juge sur graines 7, 8, 9, plafond). Environ 50 s par son. (25 October 2026)
+- Texte d'un son : `/usr/bin/python3 Scripts/FitBrief.py "refs/*.wav" --events 16 --gens 20 --run <run>` (poursuite), environ 3 à 6 min par son. (25 October 2026)
+- Son sale : `zrsfx.clean.clean(x, sr)` avant `Reproduce`; preuve `Scripts/CleanTest.py`. (25 October 2026)
+- Depuis une description : onglet « Depuis un texte » (scènes et archétypes dans `params/`). (25 October 2026)
+- Python : `/usr/bin/python3` (torch, librosa, scipy). Le juge importe la perte perceptive de `ZenRayMotionDesign/zrmd/audio/ploss.py`. (25 October 2026)
+
+## Les règles payées (25 October 2026)
+
+1. Juger toujours sur des graines de bruit jamais vues pendant l'ajustement, sinon on apprend le tirage (99,2 vu contre 97,2 neuf). (25 October 2026)
+2. La porte est le plafond d'identité de la recette (écart ≤ 0,3), pas un 99 fixe : une recette contre elle-même plafonne entre 97,4 et 99,5. (25 October 2026)
+3. Une note seule ne suffit pas : regarder la planche (`Scripts/CompareSheet.py`) ; la note invariante disait 98 pendant que les lignes tonales étaient floues. Lire aussi lignes, excès et souffle. (25 October 2026)
+4. Ne jamais laisser le polissage déplacer les fréquences des partiels : il détruit les lignes. (25 October 2026)
+5. Une enveloppe fine non lissée recopie le bruit de la référence ; la porte maîtresse n'a le droit que d'atténuer, au-delà de 3 dB, avec un filtre médian. (25 October 2026)
+6. Un test de dégradation doit être réaliste et se mesurer dégradation par dégradation : la première « petite pièce » avait une queue 8 dB au-dessus du son direct et faisait à elle seule 35,9. (25 October 2026)
+7. Les archétypes s'écrivent depuis la pratique du sound design, jamais depuis l'audio d'un jeu ; pour un son précis de jeu, demander un extrait et le reproduire. (25 October 2026)
+
+## État mesuré au 25 October 2026 (25 October 2026)
+
+Recette d'identité : 99,35 de moyenne invariante sur six sons Death Stranding, 6 sur 6 au plafond, lignes pondérées 75, excès 0,19 %, environ 4 300 nombres par son. Texte de 16 lignes (environ 150 nombres) : 82 à 92, le caractère mais pas l'identité. Résultats : `out/repro-03`, `out/brief-05`, `out/clean-02` du dépôt. (25 October 2026)
+
+## 25 October 2026 : la preuve d'écoute, obligatoire à chaque boucle de debug
+
+- Mots de Matthieu (25 October 2026), grammaire seule : « démontre-moi d'abord que la reproduction sonore était parfaite avec les sons de Death Stranding ; je compare chaque son et ensuite je te donne mon verdict. J'aimais bien le fait que tu me donnes aussi sur une sheet les deux images sonores pour avoir une signature visuelle. Consigne aussi cette instruction pour le debug de ZenRay SFX. » (25 October 2026)
+- Règle (25 October 2026) : toute itération de ZenRay SFX qui change un son se termine par la preuve d'écoute, AVANT d'annoncer un résultat : `/usr/bin/python3 Scripts/ListenSheet.py --run out/<run> --out out/listen-<NN>`. Elle produit `listen.html` (page autonome, référence et reproduction côte à côte, niveaux intacts, test à l'aveugle, verdicts Parfait / Presque / Différent, bouton « Copier mes verdicts ») et `signatures.png` (les deux spectrogrammes de chaque son, même échelle). Les deux s'envoient à Matthieu par SendUserFile ; la page se lit aussi sur http://127.0.0.1:3120/listen/listen-<NN>. (25 October 2026)
+- Le verdict de Matthieu à l'oreille fait foi sur la note ; un son jugé « Presque » ou « Différent » rouvre la boucle sur la cause qu'il nomme. Ne jamais déclarer une reproduction parfaite sans son verdict. (25 October 2026)
+
+## 26 October 2026 : l'édition sémantique
+
+- Onglet « Éditer » de l'app : chaque son reproduit est découpé en composants nommés (Attaque, Corps grave, Souffle ou Queue de souffle, Tons et Glissandos), chacun avec Niveau, Hauteur, Attaque, Queue, Brillance, Matière (bois à métal), Moment, Couper, Solo et Zéro ; l'écart au son d'origine est affiché en dB et en mots (imperceptible, subtil, franc) ; « Enregistrer la version » écrit `out/semantic/<son>/V_###.json` et `.wav`. (26 October 2026)
+- Code : `zrsfx/semantic.py` ; paramètres : `params/semantic.json` ; retouches de démonstration : `params/semantic-demo.json`. Méthode, mesures, pièges : `docs/METHOD.md`, section du 26 October 2026. (26 October 2026)
+- Preuves à relancer après toute modification de `semantic.py` : `Scripts/CheckSemantic.py "out/repro-03/*.recipe.json"` (identité), `Scripts/CheckSliders.py "out/repro-03/*.recipe.json"` (vert : 0 échec) puis `Scripts/CheckSliders.py out/repro-03/12-Denied.recipe.json --red` (rouge : doit échouer), puis la preuve d'écoute `Scripts/SemanticDemo.py`, envoyée à Matthieu. (26 October 2026)
+- Règle : les trois étages (paramétrique, procédural, sémantique) sont définis dans `rules/ParametricHda1.md`, section du 25 October 2026 ; un son livré n'est complet qu'avec son interface sémantique. (26 October 2026)
