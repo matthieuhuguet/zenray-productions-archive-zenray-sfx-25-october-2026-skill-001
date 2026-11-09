@@ -70,3 +70,7 @@ Recette d'identité : 99,35 de moyenne invariante sur six sons Death Stranding, 
 - 26 October 2026 : étirer un son de pluie ou de bruit donne « les enfers » ; pour du doux et classe, partir de tons purs (`Scripts/DesignRhythmD5.py`) ou de la référence elle-même (`DesignRhythmD7.py`), sans rien ajouter. Matthieu juge « propre » ce qui est la référence ou un ton pur. (26 October 2026)
 - 26 October 2026 : mixer = NORMALISER CHAQUE ENTRÉE d'abord à la même sonie, puis fusionner (`Scripts/Assemble6s.py`, `AssembleNote.py`, `AssembleTrack.py`), puis masteriser par un gain pur et un limiteur doux sur les seuls pics (`AssembleFinal.py` : `loudnorm` écrasait tout). Un limiteur à anticipation retarde le son (239 échantillons) : le retard se mesure par corrélation et se supprime. Chaque script a son contrôle vert et rouge. (26 October 2026)
 - 26 October 2026 : les sons se rendent dans la Galerie SFX (`/motion/gallery-sfx` de l'app Motion) et se posent dans un film par la piste Sons (voir le skill zenray-motion-design) ; ne jamais enchaîner un long travail sans livrer le fichier demandé (Matthieu : « donne-moi directement les sons »). (26 October 2026)
+
+## 9 November 2026 : contexte par ZenRay Past (9 November 2026)
+
+- 9 November 2026 : pour retrouver le passé de ce domaine (décisions, valeur actuelle et versions dépassées, conversations, notes du jour, commits), interroger d'abord ZenRay Past, MCP `zenray-past` (`past_recall`, `past_resume`), avant de relire de gros fichiers ; voir la priorité 0 du CLAUDE.md global. (9 November 2026)
